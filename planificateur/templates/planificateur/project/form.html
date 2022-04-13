@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+</body>
+</html>
+
+{% extends 'planificateur/base.html' %}
+
+{% block 'userConnected' %}
+{% with 'userConnected' as userConnected %}
+{{block.super}}
+{% endwith %}
+{% endblock %}
+
+{% block title %}Add project{% endblock %}
+
+{% block content %}
+<div class="d-flex mb-4 align-items-start flex-column">
+    <a href="/planificateur/projects" class="btn btn-secondary btn-sm mb-2">Projects List</a>
+    {% if id != null %}
+    <h1>Modifier le projet {{form.name.instance}}</h1>
+    {% else %}
+    <h1>Créer un projet</h1>
+    {% endif %}
+</div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>
+            {{ form.name.label }} {{ form.name }}
+        </p>
+        <p>
+        {{ form.desc.label }} {{ form.desc }}
+        </p>
+        <p>
+        {{ form.status.label }} {{ form.status }}
+        </p>
+        {% if id != null and isTheProjectManager %}
+            <p>
+            {{ form.deliveryDate.label }} {{ form.deliveryDate }}
+            </p>
+        {% endif %}
+        <p>
+        {{ form.startingDate.label }} {{ form.startingDate }}
+        </p>
+        <p>
+        {{ form.stateOfProgress.label }} {{ form.stateOfProgress }}
+        </p>
+        <p>
+            project manager {{ form.id_projectManager }}
+        </p>
+        <button type="submit" class="mt-2">
+            {% if id != null %}
+                Save
+            {% else %}
+                Create
+            {% endif %}
+        </button>
+    </form>
+{% endblock %}

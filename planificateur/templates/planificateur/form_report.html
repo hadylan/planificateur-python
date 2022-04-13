@@ -1,0 +1,35 @@
+{% extends 'planificateur/base.html' %}
+
+{% block title %}Add report to task{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Ajout d'une rapport à la tâche </h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>
+            {{ formReport.content.label }} {{ formReport.content }}
+        </p>
+        <p>
+            <label>Pourcentage d'avancement</label>
+            <input type="range" name="pourcentage_avancement" value="{{ task.stateOfProgress }}" id="valueProgress"/>
+            <span id="textProgress">{{ task.stateOfProgress }}</span>
+        </p>
+        <button type="submit" class="mt-2">
+            Sauvegarder
+        </button>
+    </form>
+
+    <a href="{% url 'getOneTask' task_id=task.id project_id=project_id %}">
+        <button class="btn btn-outline-secondary mt-5">
+            Retour
+        </button> 
+    </a> 
+
+    <script>
+        document.getElementById("valueProgress").addEventListener("input", (e) =>
+            {
+                document.getElementById("textProgress").innerHTML = e.target.value
+            }
+        )
+    </script>
+{% endblock %}

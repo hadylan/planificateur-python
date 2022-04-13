@@ -1,0 +1,21 @@
+{% extends 'planificateur/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-5">Login page</h1>
+{% if developer_list %}
+<form action="{% url 'login' %}" method="post" class="m-3">
+    {% csrf_token %}
+    <label for="developer_id" class="mb-2">Choose your profile:</label>
+    <select class="form-select form-select-sm w-25 mb-3" name="developer_id" id="developer_id">
+        {% for developer in developer_list %}
+        <option value="{{developer.id}}">{{ developer.firstname }} {{developer.lastname}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" class="btn btn-sm btn-primary" value="Login">
+</form>
+{% else %}
+<p>No developer found</p>
+{% endif %}
+{% endblock %}

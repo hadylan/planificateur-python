@@ -1,0 +1,21 @@
+<style>
+    h1 span {
+        font-family: 'Roboto';
+        font-weight: 100;
+        color: #383737;
+        font-size: 1.5em
+    }
+</style>
+
+{% extends 'planificateur/base.html' %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-5 text-uppercase"><span class="text-danger">ERROR 500</span><br><span>Internal Server Error</span></h1>
+<p>Some useful links:</p>
+<ul>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'profil' %}">Profil</a></li>
+</ul>
+{% endblock %}

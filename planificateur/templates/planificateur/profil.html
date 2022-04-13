@@ -1,0 +1,22 @@
+{% extends 'planificateur/base.html' %}
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Profil page: <span class="text-primary">{{ developer.firstname}} {{developer.lastname}}</span></h1>
+    <div class="infos m-3 col-4">
+        <ul class="list-group">
+            <li class="list-group-item"><span class="fw-bolder">Firstname: </span>{{developer.firstname}}</li>
+            <li class="list-group-item"><span class="fw-bolder">Lastname: </span>{{developer.lastname}}</li>
+            <li class="list-group-item"><span class="fw-bolder">Sick leave: </span> {{ developer.isSickLeave|yesno:"Yes, No" }}</li>
+        </ul>
+    </div>
+    <form action="{% url 'profil' %}" class="m-3" method="post">
+        {% csrf_token %}
+
+        {% if developer.isSickLeave %}
+            <button type="submit" class="btn btn-sm btn-primary" name="isSick" value="notSick">Remove from sick leave</button>
+        {% elif not developer.isSickLeave %}
+            <button type="submit" class="btn btn-sm btn-primary" name="isSick" value="sick">Set on sick leave</button>
+        {% endif %}
+    </form>
+{% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+</body>
+</html>
+
+{% extends 'planificateur/base.html' %}
+
+{% block 'userConnected' %}
+{% with 'userConnected' as userConnected %}
+{{block.super}}
+{% endwith %}
+{% endblock %}
+
+{% block title %}Project{% endblock %}
+
+{% block content %}
+    <div class="d-flex  mb-4 align-items-start flex-column">
+        <h1>{{project.name}}</h1>
+        <h3>Project manager: {{project.id_projectManager}}</h3>
+    </div>  
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> Description</br>
+            {{project.desc}}</li>
+        <li class="list-group-item">Status</br>
+            {{project.status}}</li>
+        <li class="list-group-item"> Date de démarrage</br>
+            {{project.startingDate}}</li>
+        <li class="list-group-item">Date de livraison</br>
+          {% if project.deliveryDate %}
+            {{project.deliveryDate}}
+            {% else %}
+            Unknown
+          {% endif %}
+          </li>
+        <li class="list-group-item"> Etat d'avancement</br>
+            {{project.stateOfProgress}}</li>
+      </ul>
+    <div class="row">
+    {% for task in tasks %}
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">task id: {{task.id}}</h5>
+              <p class="card-text">{{task.desc}}</p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Piority: {{task.priority}}</li>
+                <li class="list-group-item">Duree: {{task.duree}}</li>
+                <li class="list-group-item">Starting date: {{task.startingDate}}</li>
+                <li class="list-group-item">State of progress: {{task.stateOfProgress}}</li>
+                <li class="list-group-item">Status: {{task.status}}</li>
+              </ul>
+              <p class="card-text">Developers assign:</p>
+              <ul>
+              {% for developer in task.developers.all %}
+                  <li>
+                    {{developer}}
+                  </li>
+              {% endfor %}
+            </ul>
+              <a href="{% url 'getOneTask' task_id=task.id project_id=project.id %}" class="btn btn-primary">Go to</a>
+            </div>
+          </div>
+        </div>
+    
+    {% endfor %}
+</div>
+<div class="mb-5">
+  <a href="{% url 'addTask' project_id=project.id %}" class="btn btn-primary">Ajouter une tâche</a>
+</div>
+{% endblock %}

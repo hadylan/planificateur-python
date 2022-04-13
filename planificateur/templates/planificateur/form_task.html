@@ -1,0 +1,40 @@
+{% extends 'planificateur/base.html' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Ajout d'une tâche</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>
+        {{ formTask.desc.label }} {{ formTask.desc }}
+        </p>
+        <p>
+        {{ formTask.priority.label }} {{ formTask.priority }}
+        </p>
+        <p>
+        {{ formTask.duree.label }} {{ formTask.duree }}
+        </p>
+        {{ formTask.startingDate.label }} {{ formTask.startingDate }}
+        <p>
+        {{ formTask.developers.label }} {{ formTask.developers }}
+        </p>
+
+        <button type="submit" class="mt-2">
+            Sauvegarder
+        </button>
+    </form>
+    {% if isEdit %}
+        <a href="{% url 'getOneTask' task_id=task_id project_id=project_id %}">
+            <button class="btn btn-outline-secondary">
+                Retour
+            </button> 
+        </a>
+    {% else %}
+        <a href="{% url 'getOneProject' id=project_id %}">
+            <button class="btn btn-outline-secondary">
+                Retour
+            </button> 
+        </a>
+    {% endif %}
+{% endblock %}

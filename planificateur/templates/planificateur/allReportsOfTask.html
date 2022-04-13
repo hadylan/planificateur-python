@@ -1,0 +1,23 @@
+{% extends 'planificateur/base.html' %}
+
+{% block title %}Task{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Rapports de la tâche ID {{task.id}}</h1>
+    {% for report in task.reports.all %}
+        <div class="container border mb-3 p-3">
+            <p>Date : {{ report.date }}</p>
+            <p>Contenu : {{ report.content }}</p>
+            <a href="{% url 'deleteReport' task_id=task.id report_id=report.id project_id=project_id %}">
+                <button class="btn btn-outline-dark">
+                    Supprimer le rapport
+                </button> 
+            </a> 
+        </div>
+    {% endfor %}
+    <a href="{% url 'getOneTask' task_id=task.id project_id=project_id %}">
+        <button class="btn btn-outline-secondary">
+            Retour
+        </button> 
+    </a> 
+{% endblock %}

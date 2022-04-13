@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+</body>
+</html>
+
+{% extends 'planificateur/base.html' %}
+
+{% block 'userConnected' %}
+{% with 'userConnected' as userConnected %}
+{{block.super}}
+{% endwith %}
+{% endblock %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-wrap mb-4 align-items-start flex-column"> 
+        <h1 class="">Projects :</h1>  
+    </div>
+    <a href="projects/add" class="btn btn-primary my-3">New project</a>
+    <div class="d-flex flex-wrap">
+    {% for project in projects %}
+    <div class="card m-2">
+        <h5 class="card-header">{{project.name}}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{project.desc}}</h5>
+          <p class="card-text">
+              Project manager: {{project.id_projectManager}}</br>
+              Status: {{project.status}}
+            </p>
+          <div class="d-flex justify-content-between">
+          <a href="projects/{{project.id}}" class="btn btn-primary">See all info</a>
+          <a href="projects/{{project.id}}/update" class="btn btn-primary">Modify</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <div>
+{% endblock %}
